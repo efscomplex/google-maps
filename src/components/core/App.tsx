@@ -1,8 +1,15 @@
 import React from 'react'
-import Map from './GoogleMap'
+import Map from './Map'
+import Search from 'components/shared/Search'
+import { withStore } from 'store/Store'
 
 const App = () => {
-	return <Map />
+	return (
+		<div>
+			<Map />
+			<Search />
+		</div>
+	)
 }
 
-export default App
+export default withStore(App)
