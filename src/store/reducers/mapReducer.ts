@@ -10,7 +10,7 @@ const initialState: MapState = {
 } as MapState
 
 export const mapSlice = createSlice({
-	name: 'mark',
+	name: 'map',
 	initialState,
 	reducers: {
 		addMark: (state, action) => {
@@ -22,11 +22,9 @@ export const mapSlice = createSlice({
 		}
 	}
 })
-const { actions, reducer } = mapSlice
-export const { addMark, setMap } = actions
-export const useMark = () => useSelector<MapState>((state) => state.marks)
 
-/** export all reducers */
-export default {
-	map: reducer
-}
+export const { actions, reducer } = mapSlice
+
+//export const useMarks = () => useSelector<MapState>((state) => state.marks)
+
+export default reducer

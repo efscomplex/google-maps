@@ -1,14 +1,12 @@
 import React, { createRef } from 'react'
+import { useStore } from 'services/providers/StoreProvider'
 import { GMap } from 'services/google/GoogleMaps'
 import styled from 'styled-components'
-import { useDispatch } from 'react-redux'
-import { addMark, setMap } from 'store/reducers'
-import { Marker } from 'modules/Marker'
 
 const gmap = new GMap({})
 
 const Map = () => {
-	const dispatch = useDispatch()
+	const dispatch = useStore()
 	const bcn = { lat: 41.38581760534082, lng: 2.1733692498093284 }
 	const options = {
 		center: bcn,
@@ -20,9 +18,7 @@ const Map = () => {
 			const mark = gmap.createMark({
 				position: bcn
 			})
-			const marker = new Marker(mark)
-			console.log(marker.getData())
-			dispatch(addMark(marker.getData()))
+			dispatch('addMark', mark)
 		})
 	}, [])
 

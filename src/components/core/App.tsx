@@ -1,15 +1,16 @@
 import React from 'react'
 import Map from './Map'
 import Search from 'components/shared/Search'
-import { withStore } from 'store/Store'
+import { withRedux } from 'store/ReduxStore'
+import { StoreProvider } from 'services/providers/StoreProvider'
 
 const App = () => {
 	return (
-		<div>
+		<StoreProvider>
 			<Map />
 			<Search />
-		</div>
+		</StoreProvider>
 	)
 }
 
-export default withStore(App)
+export default withRedux(App)

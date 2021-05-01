@@ -2,6 +2,7 @@ export class Marker {
 	clickable: boolean
 	position: any
 	visible: boolean
+
 	constructor(marker: google.maps.Marker) {
 		this.clickable = marker.getClickable()
 		const position = marker.getPosition() as google.maps.LatLng
@@ -11,6 +12,7 @@ export class Marker {
 		}
 		this.visible = marker.getVisible()
 	}
+
 	getData() {
 		return {
 			position: this.position,
