@@ -5,21 +5,26 @@ import styled from 'styled-components'
 
 const gmap = new GMap({})
 
-const Map = () => {
-	const dispatch = useStore()
-	const bcn = { lat: 41.38581760534082, lng: 2.1733692498093284 }
+const Map: React.FC<{ location: any }> = ({ location }) => {
+	const { dispatch, setMap } = useStore()
+
 	const options = {
-		center: bcn,
+		center: location,
 		zoom: 8
 	}
 	const target = createRef<HTMLDivElement>()
+
 	React.useEffect(() => {
-		gmap.createMap(target.current as Element, options).then(() => {
-			const mark = gmap.createMark({
-				position: bcn
-			})
-			dispatch('addMark', mark)
-		})
+		const createMap = async (options: any) => {
+			await gmap.createMap(target.current as Element, options)
+			setMap(gmap)
+			gmap.createMark({ position: location })
+				.then((mark) => {
+					dispatch('addMark', mark)
+				})
+				.catch(console.log)
+		}
+		createMap(options)
 	}, [])
 
 	return <Wrapper ref={target} />
