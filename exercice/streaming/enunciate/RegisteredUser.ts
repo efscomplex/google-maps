@@ -1,5 +1,5 @@
 import {
-	IRegisterdUser,
+	IRegisteredUser,
 	IStreamingService,
 	IDownloadService,
 	Timestamp
@@ -7,7 +7,7 @@ import {
 
 type Service = IStreamingService | IDownloadService
 
-export class RegisteredUser implements IRegisterdUser {
+export class RegisteredUser implements IRegisteredUser {
 	services: Service[]
 	email: string
 	password: string

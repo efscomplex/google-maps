@@ -13,15 +13,15 @@ export interface IPremiumContent extends IMultimediaContent {
 	additionalFee: number
 }
 
-export interface IRegisterdUser {
+export interface IRegisteredUser {
 	email: string
 	password: string
 	registration: Timestamp
 	adult: boolean
-	getTotal(): number
 }
 export interface IService {
 	timestamp: Timestamp
+	getTotal(): number
 	getMultimediaContent(): IMultimediaContent | IPremiumContent
 }
 
