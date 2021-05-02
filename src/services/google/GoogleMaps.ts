@@ -2,13 +2,6 @@ import { Loader, LoaderOptions } from 'google-maps'
 import { GOOGLE_API_KEY } from 'config'
 import { Marker } from './Marker'
 
-type Position = {
-	lat: number
-	lng: number
-}
-type MarkOpts = {
-	position: Position
-}
 export class GMap {
 	loader: Loader
 	private map: any
@@ -24,23 +17,34 @@ export class GMap {
 		this.google = await this.loader.load()
 		this.map = new this.google.maps.Map(target, options)
 		this.infoWindow = new this.google.maps.InfoWindow()
+		this.geocoder = new this.google.maps.Geocoder()
 	}
 
-	createMark = (opts: MarkOpts) => {
-		const marker = new google.maps.Marker({
-			...opts,
+	createMark = (opts: any) => {
+		const marker = new this.google.maps.Marker({
+			position: opts.position,
 			map: this.map,
 			optimized: false
 		})
-		/* 	marker.addListener('click', () => {
-			this.infoWindow.close()
-			this.infoWindow.setContent(marker.getTitle())
-			this.infoWindow.open(marker.getMap(), marker)
-		}) */
 		const serializedMarker = new Marker(marker)
-		return serializedMarker.getData()
-	}
-	createGeocoder = () => {
-		this.geocoder = new this.google.maps.Geocoder()
+		return Promise.resolve(serializedMarker.getData())
+
+		// not allowd use the geocoder
+		/* return new Promise((resolve, reject) => {
+			this.geocoder.geocode(opts, (results: any, status: string) => {
+				if (status == 'OK') {
+					this.map.setCenter(results[0].geometry.location)
+					const marker = new this.google.maps.Marker({
+						position: results[0].geometry.location,
+						map: this.map,
+						optimized: false
+					})
+					const serializedMarker = new Marker(marker)
+					resolve(serializedMarker.getData())
+				} else {
+					reject('request denied!!')
+				}
+			}) 
+		})*/
 	}
 }

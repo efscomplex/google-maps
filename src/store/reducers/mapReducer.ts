@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
+import { RootState } from '../ReduxStore'
 
 type MapState = {
 	marks: any
@@ -10,21 +11,19 @@ const initialState: MapState = {
 } as MapState
 
 export const mapSlice = createSlice({
-	name: 'map',
+	name: 'maps',
 	initialState,
 	reducers: {
 		addMark: (state, action) => {
 			const marker = action.payload
 			state.marks.push(marker)
-		},
-		setMap: (state, action) => {
-			state.map = action.payload
 		}
 	}
 })
 
 export const { actions, reducer } = mapSlice
 
-//export const useMarks = () => useSelector<MapState>((state) => state.marks)
+export const useMarks = () =>
+	useSelector<RootState>((state) => state.maps.marks)
 
 export default reducer

@@ -1,11 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
+import { RootState } from '../ReduxStore'
+import data from 'mock'
 
 type AppState = {
 	isLoading: boolean
+	suggestions: string[]
 }
 const initialState: AppState = {
-	isLoading: false
+	isLoading: false,
+	suggestions: data.suggestions
 }
 
 export const mapSlice = createSlice({
@@ -19,7 +23,10 @@ export const mapSlice = createSlice({
 })
 
 export const { actions, reducer } = mapSlice
+
 export const useIsLoading = () =>
-	useSelector<AppState>((state) => state.isLoading)
+	useSelector<RootState>((state) => state.app.isLoading)
+export const useSuggestions = () =>
+	useSelector<RootState>((state) => state.app.suggestions) as string[]
 
 export default reducer
